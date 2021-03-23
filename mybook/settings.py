@@ -43,8 +43,11 @@ INSTALLED_APPS = [
     'django.contrib.sites',
 
     # Third-party
+    'crispy_forms',
     'allauth',
     'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.github',
 
     # Local
     'users.apps.UsersConfig',
@@ -139,6 +142,8 @@ AUTH_USER_MODEL = 'users.CustomUser'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 ACCOUNT_LOGOUT_REDIRECT = 'home'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 SITE_ID = 1
 

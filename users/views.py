@@ -1,6 +1,7 @@
+from django.contrib.auth import get_user_model
 from django.http import HttpResponse
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DetailView
 
 from users.forms import CustomUserCreationForm
 
@@ -11,5 +12,7 @@ class SignUpPageView(CreateView):
     template_name = 'signup.html'
 
 
-def user_profile(request):
-    return HttpResponse('User Profile')
+class UserProfile(DetailView):
+    model = get_user_model()
+    template_name = 'users/profile.html'
+    context_object_name = 'user'
