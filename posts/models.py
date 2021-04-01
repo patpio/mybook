@@ -6,8 +6,8 @@ from django.utils.text import slugify
 class Post(models.Model):
     owner = models.ForeignKey(get_user_model(), related_name='post_owner', on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
-    slug = models.SlugField(max_length=100, unique=True)
-    context = models.TextField()
+    slug = models.SlugField(max_length=100, unique=True, blank=True)
+    context = models.TextField(blank=True)
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
