@@ -1,0 +1,18 @@
+{% extends "_base.html" %}
+
+{% block title %} Post {% endblock %}
+
+{% block content %}
+<div class="card">
+  <div class="card-body">
+    <h3 class="card-title">{{ post.title }}</h3>
+    <h5 class="card-text">Created by {{ post.owner }} at {{ post.created }}</h5>
+    {% for image in post.images.all %}
+      <img src="{{ image.image.url }}" class="card-img-top responsive" alt="MyBook">
+    {% endfor %}
+    <p class="card-text">{{ post.context }}</p>
+    <a href="{% url 'posts:update' post.id %}" class="btn btn-primary">Edit</a>
+    <a href="{% url 'posts:delete' post.id %}" class="btn btn-danger">Delete</a>
+  </div>
+</div>
+{% endblock %}

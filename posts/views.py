@@ -1,8 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
+from django.views.generic import DetailView, DeleteView, ListView
 
-from extra_views import CreateWithInlinesView
+from extra_views import CreateWithInlinesView, UpdateWithInlinesView
 
 from posts.forms import PostImageInline
 from posts.models import Post
@@ -27,9 +27,17 @@ class PostDetail(DetailView):
     context_object_name = 'post'
 
 
-class UpdatePost(LoginRequiredMixin, UpdateView):
+class PostList(ListView):
+    model = Post
+    template_name = 'posts/post_list.html'
+    paginate_by = 6
+    context_object_name = 'posts'
+
+
+class UpdatePost(LoginRequiredMixin, UpdateWithInlinesView):
     model = Post
     fields = ['title', 'slug', 'context']
+    inlines = [PostImageInline]
     template_name = 'posts/edit_post.html'
     login_url = reverse_lazy('account_login')
     success_url = reverse_lazy('home')

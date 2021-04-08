@@ -1,0 +1,40 @@
+{% extends "_base.html" %}
+{% load static %}
+{% block title %} Wall {% endblock %}
+
+{% block content %}
+
+<div class="row">
+{% for post in posts %}
+    <div class="col-sm-4">
+        <div class="card text-center" style="width: 18rem;">
+            <a href="{% url 'posts:detail' post.id %}">
+                <img src="{% static 'images/logo.ico' %}" class="card-img-top" alt="MyBook">
+            </a>
+            <div class="card-body">
+            <h5 class="card-title">{{ post.title }}</h5>
+            <p class="card-text">By <b>{{ post.owner }}</b></p>
+            <a href="{% url 'posts:detail' post.id %}" class="btn btn-primary">See</a>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+</div>
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}

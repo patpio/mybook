@@ -6,3 +6,4 @@ from posts.models import PostImage
 class PostImageInline(InlineFormSetFactory):
     model = PostImage
     fields = ['image']
+    factory_kwargs = {'extra': 3}
